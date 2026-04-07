@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,9 +47,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
+   public function profile()
+{
+    return $this->hasOne(\App\Models\Profile::class);
+}
     
 }
