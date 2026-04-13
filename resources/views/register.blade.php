@@ -15,6 +15,12 @@
         {{ $errors->first() }}
     </div>
 @endif
+  @if(session('error'))
+        <div class="bg-red-100 text-red-700 p-2 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <form method="POST" action="/register" class="space-y-4">
         @csrf
 

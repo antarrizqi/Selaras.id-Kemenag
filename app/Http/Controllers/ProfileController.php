@@ -3,24 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController
 {
     public function index()
     {
-        return view('profile.profile');
+        $user = Auth::user();
+        return view('profile.profile', compact('user'));
     }
 
     public function create()
     {
+        $user = Auth::user();
+
+        // 🔒 kalau sudah punya CV → block
+        if ($user->profile) {
+            return redirect('/user')->with('error', 'Kamu sudah punya CV');
+        }
+
         return view('profile.create');
     }
 
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari form
-        $validatedData = $request->validate([
+        $user = Auth::user();
+
+        //  anti duplicate CV
+        if ($user->profile) {
+            return redirect('/user')->with('error', 'CV sudah ada');
+        }
+        // handle foto_profil upload
+        if ($request->hasFile('foto_profil')) {
+            $path = $request->file('foto_profil')->store('profiles', 'public');
+            $validated['foto_profil'] = $path;
+        }
+
+        $validated = $request->validate([
             'alamat_domisili' => 'nullable|string|max:255',
             'kota_domisili' => 'nullable|string|max:255',
             'tinggi_badan' => 'nullable|integer',
@@ -37,31 +57,49 @@ class ProfileController
             'status_pernikahan' => 'nullable|string|max:255',
             'jumlah_anak' => 'nullable|integer',
             'kriteria_pasangan' => 'nullable|string',
+            'jenis_kelamin' => 'nullable|string|max:255',
+            'foto_profil' => 'nullable|image|max:2048',
+            'visi_misi_pernikahan' => 'nullable|string',
+
         ]);
 
-        $profile = new \App\Models\Profile($validatedData);
-        $profile->user_id = \Illuminate\Support\Facades\Auth::id();
-        $profile->save();
+        // validasi system field
+        $validated['user_id'] = $user->id;
+        $validated['status'] = 'pending';
 
-        return redirect()->route('profile.index')->with('success', 'Profile berhasil dibuat!');
+        Profile::create($validated);
+
+        return redirect('/user')->with('success', 'CV berhasil dibuat');
     }
 
     public function show($id)
     {
-        $profile = \App\Models\Profile::where('user_id', $id)->firstOrFail();
+        $profile = Profile::where('user_id', $id)->firstOrFail();
         return view('profile.show', compact('profile'));
     }
 
     public function edit($id)
     {
-        $profile = \App\Models\Profile::where('user_id', $id)->firstOrFail();
+        $profile = Profile::where('user_id', $id)->firstOrFail();
+
+        //  kalau sudah approved → tidak bisa edit
+        if ($profile->status === 'approved') {
+            return redirect('/user')->with('error', 'CV sudah disetujui, tidak bisa diubah');
+        }
+
         return view('profile.edit', compact('profile'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi data yang diterima dari form
-        $validatedData = $request->validate([
+        $profile = Profile::where('user_id', $id)->firstOrFail();
+
+        //  lock kalau approved
+        if ($profile->status === 'approved') {
+            return redirect('/user')->with('error', 'CV sudah disetujui, tidak bisa diubah');
+        }
+
+        $validated = $request->validate([
             'alamat_domisili' => 'nullable|string|max:255',
             'kota_domisili' => 'nullable|string|max:255',
             'tinggi_badan' => 'nullable|integer',
@@ -78,20 +116,24 @@ class ProfileController
             'status_pernikahan' => 'nullable|string|max:255',
             'jumlah_anak' => 'nullable|integer',
             'kriteria_pasangan' => 'nullable|string',
+            'jenis_kelamin' => 'nullable|string|max:255',
+            'foto_profil' => 'nullable|image|max:2048',
+            'visi_misi_pernikahan' => 'nullable|string',
+
         ]);
+        $validated['status'] = 'pending';
 
-        // Update data di database
-        $profile = \App\Models\Profile::where('user_id', $id)->firstOrFail();
-        $profile->update($validatedData);
 
-        return redirect()->route('profile.index')->with('success', 'Profile berhasil diperbarui!');
+        $profile->update($validated);
+
+        return redirect('/user')->with('success', 'CV berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $profile = \App\Models\Profile::where('user_id', $id)->firstOrFail();
+        $profile = Profile::where('user_id', $id)->firstOrFail();
         $profile->delete();
 
-        return redirect()->route('profile.index')->with('success', 'Profile berhasil dihapus!');
+        return redirect('/user')->with('success', 'CV berhasil dihapus');
     }
 }

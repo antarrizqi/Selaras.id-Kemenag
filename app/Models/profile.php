@@ -25,6 +25,10 @@ class profile extends Model
         'jumlah_anak',
         'kriteria_pasangan',
         'status',
+        'jenis_kelamin',
+        'foto_profil',
+        'visi_misi_pernikahan',
+      
 
     ];
 

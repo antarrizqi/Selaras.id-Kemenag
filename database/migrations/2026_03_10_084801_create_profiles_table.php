@@ -42,6 +42,10 @@ return new class extends Migration
             $table->text('kriteria_pasangan')->nullable();
 
             $table->string('status')->default('pending');
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('foto_profil')->nullable();
+            $table->text('visi_misi_pernikahan')->nullable();
+          
 
             $table->timestamps();
         });

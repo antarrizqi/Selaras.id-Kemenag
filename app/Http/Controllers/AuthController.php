@@ -63,7 +63,7 @@ class AuthController extends Controller
                 return redirect('/mediator');
             }
 
-            return redirect('/user');
+            return redirect('/profile/create');
         }
 
         return back()->withErrors([
