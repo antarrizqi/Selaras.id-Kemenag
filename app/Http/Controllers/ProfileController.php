@@ -18,7 +18,7 @@ class ProfileController
     {
         $user = Auth::user();
 
-        // 🔒 kalau sudah punya CV → block
+        // kalau sudah punya CV → block
         if ($user->profile) {
             return redirect('/user')->with('error', 'Kamu sudah punya CV');
         }
@@ -34,10 +34,15 @@ class ProfileController
         if ($user->profile) {
             return redirect('/user')->with('error', 'CV sudah ada');
         }
-        // handle foto_profil upload
+
         if ($request->hasFile('foto_profil')) {
-            $path = $request->file('foto_profil')->store('profiles', 'public');
-            $validated['foto_profil'] = $path;
+            $file = $request->file('foto_profil');
+
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads'), $filename);
+
+            $validated['foto_profil'] = 'uploads/' . $filename;
         }
 
         $validated = $request->validate([
@@ -123,10 +128,24 @@ class ProfileController
         ]);
         $validated['status'] = 'pending';
 
+        if ($request->hasFile('foto_profil')) {
+            $file = $request->file('foto_profil');
+
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads'), $filename);
+
+            $validated['foto_profil'] = 'uploads/' . $filename;
+        }
+
 
         $profile->update($validated);
 
         return redirect('/user')->with('success', 'CV berhasil diperbarui');
+        if ($request->hasFile('foto_profil')) {
+            $path = $request->file('foto_profil')->store('profiles', 'public');
+            $validated['foto_profil'] = $path;
+        }
     }
 
     public function destroy($id)

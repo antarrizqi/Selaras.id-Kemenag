@@ -26,7 +26,7 @@ class AuthController extends Controller
 
         $data['password'] = Hash::make($data['password']);
 
-        // PAKSA JADI USER
+        // USER
         $data['role'] = 'user';
 
         $user = User::create($data);

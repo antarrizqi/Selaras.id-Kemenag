@@ -38,7 +38,7 @@
 
     <!-- FOTO -->
     @if($profile->foto_profil)
-        <img src="{{ asset('storage/'.$profile->foto_profil) }}"
+        <img src="{{ asset($item->foto_profil) }}"
         class="w-full h-40 object-cover rounded mt-3">
     @endif
 
