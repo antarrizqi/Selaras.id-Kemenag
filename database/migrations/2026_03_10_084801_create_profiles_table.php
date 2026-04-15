@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
@@ -17,43 +14,42 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->string('alamat_domisili')->nullable();
-            $table->string('kota_domisili')->nullable();
+            $table->string('alamat_domisili');
+            $table->string('kota_domisili');
 
-            $table->integer('tinggi_badan')->nullable();
-            $table->integer('berat_badan')->nullable();
+            $table->integer('tinggi_badan');
+            $table->integer('berat_badan');
 
-            $table->string('warna_kulit')->nullable();
-            $table->string('suku')->nullable();
+            $table->string('warna_kulit');
+            $table->string('suku');
 
-            $table->text('deskripsi_diri')->nullable();
-            $table->string('hobi')->nullable();
-            $table->string('organisasi')->nullable();
+            $table->text('deskripsi_diri');
+            $table->string('hobi');
+            $table->string('organisasi');
 
-            $table->text('kelebihan')->nullable();
-            $table->text('kekurangan')->nullable();
-            $table->text('aktivitas_harian')->nullable();
+            $table->text('kelebihan');
+            $table->text('kekurangan');
+            $table->text('aktivitas_harian');
 
-            $table->text('riwayat_penyakit')->nullable();
+            $table->text('riwayat_penyakit');
 
-            $table->string('status_pernikahan')->nullable();
-            $table->integer('jumlah_anak')->nullable();
+            $table->string('status_pernikahan');
+            $table->integer('jumlah_anak');
 
-            $table->text('kriteria_pasangan')->nullable();
+            $table->text('kriteria_pasangan');
 
-            $table->string('status')->default('pending');
-            $table->string('jenis_kelamin')->nullable();
-            $table->string('foto_profil')->nullable();
-            $table->text('visi_misi_pernikahan')->nullable();
-          
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+
+            $table->string('jenis_kelamin');
+
+            $table->string('foto_profil');
+
+            $table->text('visi_misi_pernikahan');
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('profiles');

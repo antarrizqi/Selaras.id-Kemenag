@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>dashboard mediator</h1>
-</body>
-</html>
+<h1 class="text-xl font-bold mb-4">Mediator Dashboard</h1>
+
+@foreach($data as $t)
+<div class="bg-white p-4 rounded shadow mb-3">
+
+    <p class="font-bold">
+        {{ $t->fromUser->name }} → {{ $t->toUser->name }}
+    </p>
+
+    <p>HP A: {{ $t->fromUser->phone }}</p>
+    <p>HP B: {{ $t->toUser->phone }}</p>
+
+</div>
+@endforeach

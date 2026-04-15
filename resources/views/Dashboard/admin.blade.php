@@ -37,10 +37,10 @@
     </p>
 
     <!-- FOTO -->
-    @if($profile->foto_profil)
+    {{-- @if($profile->foto_profil)
         <img src="{{ asset($item->foto_profil) }}"
         class="w-full h-40 object-cover rounded mt-3">
-    @endif
+    @endif --}}
 
     <!-- DATA CV -->
     <p class="mt-2"><b>Kota:</b> {{ $profile->kota_domisili }}</p>
@@ -81,15 +81,11 @@
         </form>
 
     </div>
+    
 
-    <span>
-        <form action="{{ Route('admin.view',$profile->id) }}" method="GET">
-            @csrf
-            <button class="bg-blue-500 text-white px-3 py-1 rounded mt-2">
-                View CV
-            </button>
-        </form>
-    </span>
+    <a href="{{ route('admin.view', $profile->id) }}" 
+   class="bg-blue-500 text-white px-3 py-1 rounded mt-2 inline-block">
+    View CV
 
     @endif
 

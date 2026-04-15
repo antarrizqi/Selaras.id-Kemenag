@@ -25,4 +25,11 @@ class MatchController
 
         return view('matches.index', compact('candidates'));
     }
+
+    public function show($id)
+    {
+        $candidate = \App\Models\Profile::with('user')->findOrFail($id);
+
+        return view('matches.show', compact('candidate'));
+    }
 }

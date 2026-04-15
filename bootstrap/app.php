@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             'role' => App\Http\Middleware\RoleMiddleware::class,
             'profile.check' => App\Http\Middleware\ProfileCheck::class,
+            
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

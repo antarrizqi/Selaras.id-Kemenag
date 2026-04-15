@@ -37,6 +37,8 @@
         placeholder="Konfirmasi Password"
         class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400">
 
+        <input name="phone" placeholder="Nomor HP" required>
+
        
 
         <button

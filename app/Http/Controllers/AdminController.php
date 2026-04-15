@@ -40,8 +40,20 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $profile = Profile::with('user')->findOrFail($id);
+        $profile = \App\Models\Profile::with('user')->findOrFail($id);
 
-        return view('dashboard.admin-view', compact('profile'));
+        return view('admin.show', compact('profile')); 
     }
+    
+    public function createMediator(Request $request)
+{
+    \App\Models\User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role' => 'mediator'
+    ]);
+
+    return back();
+}
 }
