@@ -16,7 +16,7 @@
     <p>Email: {{ $profile->user->email }}</p>
 
     @if($profile->foto_profil)
-        <img src="{{ asset('storage/'.$profile->foto_profil) }}"
+        <img src="{{ asset($profile->foto_profil) }}">
              class="w-full h-60 object-cover rounded mt-3">
     @endif
 

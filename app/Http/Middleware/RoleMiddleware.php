@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware; // HARUS INI
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -8,14 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!auth::check()) {
+        // ❗ belum login
+        if (!Auth::check()) {
             return redirect('/login');
         }
 
-        if (auth::user()->role !== $role) {
-            abort(403);
+        $user = Auth::user();
+
+        // ❗ cek role (bisa multi role)
+        if (!in_array($user->role, $roles)) {
+            abort(403, 'Akses ditolak');
         }
 
         return $next($request);

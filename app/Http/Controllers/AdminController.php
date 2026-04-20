@@ -5,55 +5,86 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Profile;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    // tampil semua profile
+    // 🔥 DASHBOARD ADMIN
     public function index()
     {
-        $profiles = \App\Models\Profile::with('user')->latest()->get();
+        $profiles = Profile::with('user')->latest()->get();
 
         return view('dashboard.admin', compact('profiles'));
     }
 
-    // approve
+    // 🔥 APPROVE USER
     public function approve($id)
     {
         $profile = Profile::findOrFail($id);
 
-        $profile->status = 'approved';
-        $profile->save();
+        $profile->update([
+            'status' => 'approved'
+        ]);
 
         return back()->with('success', 'User berhasil di-approve');
     }
 
-    // reject
+    // 🔥 REJECT USER
     public function reject($id)
     {
         $profile = Profile::findOrFail($id);
 
-        $profile->status = 'rejected';
-        $profile->save();
+        $profile->update([
+            'status' => 'rejected'
+        ]);
 
         return back()->with('error', 'User ditolak');
     }
 
+    // 🔥 LIHAT DETAIL PROFILE
     public function show($id)
     {
-        $profile = \App\Models\Profile::with('user')->findOrFail($id);
+        $profile = Profile::with('user')->findOrFail($id);
 
-        return view('admin.show', compact('profile')); 
+        return view('profile.show', compact('profile'));
     }
-    
-    public function createMediator(Request $request)
-{
-    \App\Models\User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-        'role' => 'mediator'
-    ]);
 
-    return back();
-}
+    // 🔥 BUAT MEDIATOR BARU
+    public function createMediator(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:5',
+            'phone' => 'required'
+        ]);
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'password' => Hash::make($data['password']),
+            'role' => 'mediator'
+        ]);
+
+        return back()->with('success', 'Mediator berhasil dibuat');
+    }
+
+    // 🔥 JADIKAN USER SEBAGAI MEDIATOR
+    public function makeMediator($id)
+    {
+        $user = User::findOrFail($id);
+
+        // ❗ jangan ubah admin
+        if ($user->role === 'admin') {
+            return back()->with('error', 'Admin tidak bisa diubah');
+        }
+
+        $user->update([
+            'role' => 'mediator'
+        ]);
+
+        return back()->with('success', 'User sekarang menjadi mediator');
+    }
 }

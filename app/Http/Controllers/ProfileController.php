@@ -50,16 +50,20 @@ class ProfileController
             'status_pernikahan' => 'required|string|max:255',
             'jumlah_anak' => 'required|integer',
             'kriteria_pasangan' => 'required|string',
-            'jenis_kelamin' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
             'foto_profil' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'visi_misi_pernikahan' => 'required|string',
         ]);
 
         // upload foto
         if ($request->hasFile('foto_profil')) {
+
             $file = $request->file('foto_profil');
-            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
             $file->move(public_path('uploads'), $filename);
+
             $validated['foto_profil'] = 'uploads/' . $filename;
         }
 
@@ -75,14 +79,14 @@ class ProfileController
     {
         $profile = \App\Models\Profile::with('user')->findOrFail($id);
 
-        return view('profile.show', compact('profile')); 
+        return view('profile.show', compact('profile'));
     }
     public function edit($id)
     {
         $profile = Profile::findOrFail($id);
 
-        if ($profile->status === 'approved') {
-            return redirect('/user')->with('error', 'CV sudah disetujui, tidak bisa diubah');
+        if ($profile->user_id !== auth::id()) {
+            abort(403);
         }
 
         return view('profile.edit', compact('profile'));
@@ -92,8 +96,8 @@ class ProfileController
     {
         $profile = Profile::findOrFail($id);
 
-        if ($profile->status === 'approved') {
-            return redirect('/user')->with('error', 'CV sudah disetujui, tidak bisa diubah');
+        if ($profile->user_id !== auth::id()) {
+            abort(403);
         }
 
         $validated = $request->validate([
@@ -113,16 +117,23 @@ class ProfileController
             'status_pernikahan' => 'required|string|max:255',
             'jumlah_anak' => 'required|integer',
             'kriteria_pasangan' => 'required|string',
-            'jenis_kelamin' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+
             'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'visi_misi_pernikahan' => 'required|string',
         ]);
 
+
+
         // upload foto baru (optional)
         if ($request->hasFile('foto_profil')) {
+
             $file = $request->file('foto_profil');
-            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
             $file->move(public_path('uploads'), $filename);
+
             $validated['foto_profil'] = 'uploads/' . $filename;
         }
 

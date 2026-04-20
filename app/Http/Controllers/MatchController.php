@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
-
 
 class MatchController
 {
     public function index()
     {
-        $user = auth::user();
+        $user = Auth::user();
 
-        $userGender = $user->profile->jenis_kelamin;
+        if (!$user->profile || $user->profile->status !== 'approved') {
+            return redirect('/user');
+        }
 
-        // cari lawan gender
-        $targetGender = $userGender === 'laki-laki' ? 'perempuan' : 'laki-laki';
+        // 🔥 NORMALISASI DATA
+        $gender = strtolower($user->profile->jenis_kelamin);
 
-        $candidates = \App\Models\Profile::with('user')
+        $target = $gender === 'laki-laki' ? 'perempuan' : 'laki-laki';
+
+        $candidates = Profile::with('user')
             ->where('status', 'approved')
-            ->where('jenis_kelamin', $targetGender)
             ->where('user_id', '!=', $user->id)
+            ->whereRaw('LOWER(jenis_kelamin) = ?', [$target])
             ->get();
 
-        return view('matches.index', compact('candidates'));
-    }
+        $sent = \App\Models\Taaruf::with('toUser')
+            ->where('from_user_id', $user->id)
+            ->latest()
+            ->get();
 
-    public function show($id)
-    {
-        $candidate = \App\Models\Profile::with('user')->findOrFail($id);
-
-        return view('matches.show', compact('candidate'));
+        return view('matches.index', compact('candidates', 'sent'));
     }
 }

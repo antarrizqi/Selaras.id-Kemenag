@@ -45,7 +45,7 @@
         <div class="lg:col-span-1 space-y-6">
             <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200">
                 @if($profile->foto_profil)
-                    <img src="{{ asset('storage/'.$profile->foto_profil) }}" 
+                    <img src="{{ asset($profile->foto_profil) }}" 
                          class="w-full aspect-square object-cover rounded-xl shadow-inner">
                 @else
                     <div class="w-full aspect-square bg-slate-200 rounded-xl flex items-center justify-center text-slate-400 text-xs">No Photo</div>

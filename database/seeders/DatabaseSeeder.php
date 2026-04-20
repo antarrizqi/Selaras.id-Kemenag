@@ -12,15 +12,28 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
 
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        // ADMIN
+        User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Admin',
+                'phone' => '0811111111',
+                'password' => Hash::make('12345'),
+                'role' => 'admin'
+            ]
+        );
 
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'admin'
-        ]);
+        // MEDIATOR
+        User::updateOrCreate(
+            ['email' => 'mediator@gmail.com'],
+            [
+                'name' => 'Mediator',
+                'phone' => '0822222222',
+                'password' => Hash::make('12345'),
+                'role' => 'mediator'
+            ]
+        );
     }
 }

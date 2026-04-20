@@ -2,12 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MatchController;
+use App\Http\Controllers\TaarufController;
 
-// --- PUBLIC ---
+/*
+|--------------------------------------------------------------------------
+| PUBLIC
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', fn() => view('landing-page'));
 
 Route::get('/register', [AuthController::class, 'showRegister']);
@@ -16,69 +23,68 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+/*
+|--------------------------------------------------------------------------
+| USER
+|--------------------------------------------------------------------------
+*/
 
-// --- USER FLOW ---
 Route::middleware(['auth', 'role:user'])->group(function () {
 
-    // CREATE PROFILE
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
 
-    // USER DASHBOARD FLOW
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::get('/user', function () {
 
-        $user = auth::user();
+        $user = Auth::user();
 
         if (!$user->profile) {
-            return redirect('/profile/create');
+            return redirect()->route('profile.create');
         }
 
-        $status = $user->profile->status;
+        if ($user->profile->status == 'pending') {
+            return view('user.pending');
+        }
 
-        // 🔥 AMBIL DATA REQUEST MASUK
-        $requests = \App\Models\Taaruf::with('fromUser.profile')
+        if ($user->profile->status == 'rejected') {
+            return view('user.rejected');
+        }
+
+        $incoming = \App\Models\Taaruf::with('fromUser.profile')
             ->where('to_user_id', $user->id)
             ->where('status', 'pending')
             ->get();
 
-        if ($status == 'pending') {
-            return view('user.pending', compact('requests'));
-        }
+        $sent = \App\Models\Taaruf::with('toUser.profile')
+            ->where('from_user_id', $user->id)
+            ->get();
 
-        if ($status == 'rejected') {
-            return view('user.rejected', compact('requests'));
-        }
-
-        if ($status == 'approved') {
-            return view('dashboard.user', compact('requests')); // 🔥 PENTING
-        }
+        return view('dashboard.user', compact('incoming', 'sent'));
     });
 
-    // MATCH
     Route::get('/match', [MatchController::class, 'index'])
-        ->name('match.index')
         ->middleware('profile.check');
 
-    // PROFILE DETAIL
-    Route::get('/profile/{id}', [ProfileController::class, 'show'])
-        ->name('profile.show');
-
-    // EDIT PROFILE
-    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
-
-    Route::put('/profile/{id}', [ProfileController::class, 'update'])
-        ->name('profile.update');
+    // TAARUF
+    Route::post('/taaruf/request', [TaarufController::class, 'request'])->name('taaruf.request');
+    Route::post('/taaruf/accept/{id}', [TaarufController::class, 'accept'])->name('taaruf.accept');
+    Route::post('/taaruf/reject/{id}', [TaarufController::class, 'reject'])->name('taaruf.reject');
 });
 
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
 
-// --- ADMIN ---
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index']);
-
-    Route::get('/admin/profiles', [AdminController::class, 'index'])
-        ->name('admin.profiles');
 
     Route::get('/admin/profile/{id}', [AdminController::class, 'show'])
         ->name('admin.view');
@@ -88,27 +94,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::post('/admin/profile/{id}/reject', [AdminController::class, 'reject'])
         ->name('admin.reject');
+
+    Route::post('/admin/make-mediator/{id}', [AdminController::class, 'makeMediator'])
+        ->name('admin.makeMediator');
+
+    Route::post('/admin/create-mediator', [AdminController::class, 'createMediator'])
+        ->name('admin.createMediator');
 });
 
+/*
+|--------------------------------------------------------------------------
+| MEDIATOR
+|--------------------------------------------------------------------------
+*/
 
-// taarup rut
-use App\Http\Controllers\TaarufController;
-
-Route::middleware(['auth', 'role:user'])->group(function () {
-
-    Route::post('/taaruf/request', [TaarufController::class, 'request'])->name('taaruf.request');
-
-    Route::post('/taaruf/{id}/accept', [TaarufController::class, 'accept'])->name('taaruf.accept');
-
-    Route::post('/taaruf/{id}/reject', [TaarufController::class, 'reject'])->name('taaruf.reject');
-});
-
-// route mediator
 Route::middleware(['auth', 'role:mediator'])->group(function () {
+
     Route::get('/mediator', function () {
 
-        $data = \App\Models\Taaruf::with(['fromUser', 'toUser'])
-            ->where('status', 'accepted')
+        $data = \App\Models\Taaruf::with(['fromUser.profile', 'toUser.profile'])
+            ->where('status', 'mediator')
             ->get();
 
         return view('dashboard.mediator', compact('data'));
@@ -116,66 +121,7 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
 });
 
 
-
-Route::get('/profile/create', [ProfileController::class, 'create'])
-    ->name('profile.create');
-
-Route::post('/profile', [ProfileController::class, 'store'])
-    ->name('profile.store');
-
-Route::get('/profile/{id}', [ProfileController::class, 'show'])
-    ->name('profile.show');
-
-
-
-// CREATE
-Route::get('/profile/create', [ProfileController::class, 'create'])
-    ->name('profile.create');
-
-// STORE
-Route::post('/profile', [ProfileController::class, 'store'])
-    ->name('profile.store');
-
-// SHOW
-Route::get('/profile/{id}', [ProfileController::class, 'show'])
-    ->name('profile.show');
-
-// EDIT
-Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])
-    ->name('profile.edit');
-
-// UPDATE
-Route::put('/profile/{id}', [ProfileController::class, 'update'])
-    ->name('profile.update');
-
-Route::middleware(['auth', 'role:user'])->group(function () {
-
-    Route::get('/match', [MatchController::class, 'index'])
-        ->middleware('profile.check');
-
-    Route::post('/taaruf/request', [TaarufController::class, 'request']);
-});
-
-Route::middleware(['auth', 'role:mediator'])->group(function () {
-
-    Route::get('/mediator', function () {
-        return view('dashboard.mediator');
-    });
-});
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
-
-    Route::get('/admin', [AdminController::class, 'index']);
-});
-
-
-Route::middleware(['auth','role:mediator'])->group(function () {
-    Route::get('/mediator', function () {
-
-        $data = \App\Models\Taaruf::with(['fromUser','toUser'])
-            ->where('status', 'accepted')
-            ->get();
-
-        return view('dashboard.mediator', compact('data'));
-    });
-});
+Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/taaruf/process/{id}', [TaarufController::class, 'process'])
+    ->name('taaruf.process');

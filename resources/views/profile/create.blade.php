@@ -28,21 +28,77 @@
             <input type="file" name="foto_profil" required class="w-full border p-2 rounded">
 
             <!-- Jenis Kelamin -->
-            <select name="jenis_kelamin" required class="w-full border p-2 rounded">
-                <option value="">Pilih Jenis Kelamin</option>
-                <option value="Laki-laki">Laki-laki</option>
-                <option value="Perempuan">Perempuan</option>
-            </select>
+            <select name="jenis_kelamin" required>
+    <option value="">Pilih</option>
+    <option value="laki-laki">Laki-laki</option>
+    <option value="perempuan">Perempuan</option>
+</select>
 
             <!-- Provinsi -->
-            <select name="alamat_domisili" required class="w-full border p-2 rounded">
-                <option value="">Pilih Provinsi</option>
-                <option value="Jawa Barat">Jawa Barat</option>
-                <option value="DKI Jakarta">DKI Jakarta</option>
-                <option value="Jawa Tengah">Jawa Tengah</option>
-                <!-- bisa tambah lagi -->
-            </select>
+           <div class="relative w-full">
+  <input 
+    type="text" 
+    id="searchProvinsi"
+    placeholder="Cari provinsi..."
+    class="w-full border p-2 rounded"
+  />
 
+  <div id="dropdownProvinsi" class="absolute w-full bg-white border rounded mt-1 max-h-48 overflow-y-auto hidden">
+  </div>
+
+  <input type="hidden" name="alamat_domisili" id="selectedProvinsi">
+</div>
+
+<script>
+const provinsi = [
+  "Aceh","Sumatera Utara","Sumatera Barat","Riau","Kepulauan Riau",
+  "Jambi","Sumatera Selatan","Bangka Belitung","Bengkulu","Lampung",
+  "DKI Jakarta","Jawa Barat","Jawa Tengah","DI Yogyakarta","Jawa Timur",
+  "Banten","Bali","NTB","NTT","Kalimantan Barat","Kalimantan Tengah",
+  "Kalimantan Selatan","Kalimantan Timur","Kalimantan Utara",
+  "Sulawesi Utara","Sulawesi Tengah","Sulawesi Selatan","Sulawesi Tenggara",
+  "Gorontalo","Sulawesi Barat","Maluku","Maluku Utara",
+  "Papua","Papua Barat","Papua Selatan","Papua Tengah","Papua Pegunungan"
+];
+
+const input = document.getElementById("searchProvinsi");
+const dropdown = document.getElementById("dropdownProvinsi");
+const hidden = document.getElementById("selectedProvinsi");
+
+input.addEventListener("input", function() {
+  const value = this.value.toLowerCase();
+  dropdown.innerHTML = "";
+
+  const filtered = provinsi.filter(p => p.toLowerCase().includes(value));
+
+  if (filtered.length > 0) {
+    dropdown.classList.remove("hidden");
+  } else {
+    dropdown.classList.add("hidden");
+  }
+
+  filtered.forEach(p => {
+    const div = document.createElement("div");
+    div.textContent = p;
+    div.className = "p-2 hover:bg-blue-100 cursor-pointer";
+
+    div.onclick = () => {
+      input.value = p;
+      hidden.value = p;
+      dropdown.classList.add("hidden");
+    };
+
+    dropdown.appendChild(div);
+  });
+});
+
+// close dropdown
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".relative")) {
+    dropdown.classList.add("hidden");
+  }
+});
+</script>
             <!-- Kota -->
             <input name="kota_domisili" required placeholder="Kota Domisili" class="w-full border p-2 rounded">
 

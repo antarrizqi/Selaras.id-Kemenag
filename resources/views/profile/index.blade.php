@@ -35,9 +35,10 @@
 
 <div class="mt-6 flex gap-4">
 
-<a href="/profile/edit"
-class="bg-yellow-500 text-white px-4 py-2 rounded">
-Edit
+
+<a href="{{ route('profile.edit', auth()->user()->profile->id) }}"
+   class="bg-blue-500 text-white px-3 py-1 rounded">
+   Edit Profil
 </a>
 
 <form method="POST" action="/profile/delete">
