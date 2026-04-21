@@ -6,6 +6,7 @@
 </head>
 
 <body class="bg-gray-100 p-6">
+    {{-- lihat detail user sisi admin --}}
 
 <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
 

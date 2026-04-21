@@ -15,7 +15,7 @@ class MatchController
             return redirect('/user');
         }
 
-        // 🔥 NORMALISASI DATA
+        // dapatkan jenis kelamin user, lalu cari yang berlawanan
         $gender = strtolower($user->profile->jenis_kelamin);
 
         $target = $gender === 'laki-laki' ? 'perempuan' : 'laki-laki';

@@ -13,6 +13,9 @@
         Dashboard Admin
     </h1>
 
+    {{-- dashboard sisi admin --}}
+
+
     <!-- ALERT -->
     @if(session('success'))
         <div class="bg-green-200 p-3 mb-4 rounded text-green-800">

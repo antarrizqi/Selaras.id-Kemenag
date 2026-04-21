@@ -22,7 +22,7 @@
         {{ $t->fromUser->name }} → {{ $t->toUser->name }}
     </p>
 
-    {{-- 🔥 LINK PROFIL --}}
+    {{-- LINK PROFIL --}}
     <div class="mt-2 space-x-3">
 
         @if($t->fromUser->profile)
@@ -41,10 +41,10 @@
 
     </div>
 
-    {{-- 🔥 NOMOR HP --}}
+    {{--  NOMOR HP --}}
     <div class="mt-3 text-sm">
-        <p>No HP A: {{ $t->fromUser->phone ?? '-' }}</p>
-        <p>No HP B: {{ $t->toUser->phone ?? '-' }}</p>
+        <p>No HP Pengaju: {{ $t->fromUser->phone ?? '-' }}</p>
+        <p>No HP Target: {{ $t->toUser->phone ?? '-' }}</p>
     </div>
 
 </div>

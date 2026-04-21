@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class profile extends Model
 {
+    // model di bagian crate profile
     protected $fillable = [
         'user_id',
         'alamat_domisili',

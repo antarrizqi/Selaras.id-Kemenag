@@ -44,7 +44,7 @@ class TaarufController extends Controller
     {
         $t = Taaruf::findOrFail($id);
 
-        // 🔒 hanya target yg boleh accept
+        //  hanya target yg boleh accept
         if ($t->to_user_id !== auth::id()) {
             abort(403);
         }
@@ -54,7 +54,7 @@ class TaarufController extends Controller
             'status' => 'accepted'
         ]);
 
-        // 🔥 step 2: langsung kirim ke mediator
+        // step 2: langsung kirim ke mediator
         $t->update([
             'status' => 'mediator'
         ]);

@@ -6,6 +6,7 @@
 </head>
 
 <body class="bg-gray-100 p-6">
+    {{-- detail profile sisi mediator --}}
 
 <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
 

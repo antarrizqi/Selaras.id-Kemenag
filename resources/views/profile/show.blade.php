@@ -7,6 +7,8 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen p-6">
+    {{-- detail profil user sisi user --}}
+
 
 <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
 
@@ -47,29 +49,10 @@
 
     </div>
 
-    <!-- 🔥 ACTION BUTTON -->
-    <div class="mt-6 flex gap-3">
+    
 
 
 
-
-        <!-- ✅ BUTTON TAARUF (HANYA USER LAIN) -->
-        @auth
-            @if(auth()->id() !== $profile->user_id && auth()->user()->role === 'user')
-
-                <form method="POST" action="{{ route('taaruf.request') }}">
-                    @csrf
-
-                    <input type="hidden" name="to_user_id" value="{{ $profile->user_id }}">
-
-                    <button type="submit"
-                        class="bg-green-500 text-white px-4 py-2 rounded">
-                        Ajukan Taaruf
-                    </button>
-                </form>
-
-            @endif
-        @endauth
 
     </div>
 

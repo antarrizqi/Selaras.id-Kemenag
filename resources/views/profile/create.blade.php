@@ -6,6 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+{{-- buat profile/cv user --}}
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white p-8 rounded-xl shadow w-full max-w-3xl">
         <h1 class="text-2xl font-bold mb-6 text-center">Buat CV Profil</h1>
@@ -29,6 +31,7 @@
 
             <!-- Jenis Kelamin -->
             <select name="jenis_kelamin" required>
+                <p>jenis kelamin</p>
     <option value="">Pilih</option>
     <option value="laki-laki">Laki-laki</option>
     <option value="perempuan">Perempuan</option>
@@ -99,6 +102,7 @@ document.addEventListener("click", (e) => {
   }
 });
 </script>
+
             <!-- Kota -->
             <input name="kota_domisili" required placeholder="Kota Domisili" class="w-full border p-2 rounded">
 

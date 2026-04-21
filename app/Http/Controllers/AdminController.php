@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    // 🔥 DASHBOARD ADMIN
+    //  DASHBOARD ADMIN
     public function index()
     {
         $profiles = Profile::with('user')->latest()->get();
@@ -18,7 +18,7 @@ class AdminController extends Controller
         return view('dashboard.admin', compact('profiles'));
     }
 
-    // 🔥 APPROVE USER
+    //  APPROVE USER
     public function approve($id)
     {
         $profile = Profile::findOrFail($id);
@@ -30,7 +30,7 @@ class AdminController extends Controller
         return back()->with('success', 'User berhasil di-approve');
     }
 
-    // 🔥 REJECT USER
+    //  REJECT USER
     public function reject($id)
     {
         $profile = Profile::findOrFail($id);
@@ -42,7 +42,7 @@ class AdminController extends Controller
         return back()->with('error', 'User ditolak');
     }
 
-    // 🔥 LIHAT DETAIL PROFILE
+    //  LIHAT DETAIL PROFILE
     public function show($id)
     {
         $profile = Profile::with('user')->findOrFail($id);
@@ -50,7 +50,7 @@ class AdminController extends Controller
         return view('profile.show', compact('profile'));
     }
 
-    // 🔥 BUAT MEDIATOR BARU
+    //  BUAT MEDIATOR BARU
     public function createMediator(Request $request)
     {
         $data = $request->validate([
@@ -71,12 +71,12 @@ class AdminController extends Controller
         return back()->with('success', 'Mediator berhasil dibuat');
     }
 
-    // 🔥 JADIKAN USER SEBAGAI MEDIATOR
+    //  JADIKAN USER SEBAGAI MEDIATOR
     public function makeMediator($id)
     {
         $user = User::findOrFail($id);
 
-        // ❗ jangan ubah admin
+        // Absolut admin, tidak bisa diubah menjadi mediator
         if ($user->role === 'admin') {
             return back()->with('error', 'Admin tidak bisa diubah');
         }

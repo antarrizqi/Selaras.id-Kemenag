@@ -11,13 +11,9 @@
     ❌ Maaf, profil kamu ditolak
 </h1>
     <p class="mt-2 text-gray-600">
-        Silakan perbaiki data kamu.
-    </p>
+coba lagi ya..    </p>
 
-    <a href="/profile/{{ auth()->user()->profile->id }}/edit"
-    class="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-        Edit CV
-    </a>
+   
 </div>
 
 </body>

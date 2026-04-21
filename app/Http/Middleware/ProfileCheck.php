@@ -13,12 +13,12 @@ class ProfileCheck
 {
     $user = auth::user();
 
-    // ❌ kalau belum login atau belum punya profile
+    //  kalau belum login atau belum punya profile
     if (!$user || !$user->profile) {
         return redirect()->route('profile.create');
     }
 
-    // ❌ kalau belum di-approve
+    //  kalau belum di-approve
     if ($user->profile->status !== 'approved') {
         return redirect('/user');
     }

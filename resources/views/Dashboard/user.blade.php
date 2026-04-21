@@ -11,6 +11,8 @@
 <div class="display:flex items-center justify-between">
 <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
 
+{{-- dashboard user --}}
+
        <a href="/match"
            class="bg-blue-600 text-white px-4 py-2 rounded text-sm">
            Cari Pasangan

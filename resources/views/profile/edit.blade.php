@@ -6,6 +6,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+{{-- user edit profile --}}
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
 <div class="bg-white p-8 rounded-xl shadow w-full max-w-3xl">

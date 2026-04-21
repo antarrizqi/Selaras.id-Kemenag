@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 
 class AuthController extends Controller
 {
-    // ================= REGISTER 
+//    ================= REGISTER =================
 
     public function showRegister()
     {
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        // 🔥 langsung ke create profile (lebih aman daripada /user)
+        //  langsung ke create profile (lebih aman daripada /user)
         return redirect()->route('profile.create');
     }
 
@@ -69,7 +69,7 @@ class AuthController extends Controller
                 return redirect('/mediator');
             }
 
-            // 🔥 USER FLOW
+            //  USER FLOW
             if (!$user->profile) {
                 return redirect()->route('profile.create');
             }

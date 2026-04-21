@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Taaruf extends Model
 {
+    // model dari sesi taaruf
     protected $fillable = [
         'from_user_id',
         'to_user_id',
