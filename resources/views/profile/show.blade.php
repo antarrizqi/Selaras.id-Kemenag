@@ -7,7 +7,7 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen p-6">
-    {{-- detail profil user sisi user --}}
+    {{-- detail profil user sisi user dan admin--}}
 
 
 <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
@@ -32,7 +32,7 @@
     <p class="text-gray-600 mb-4">
         {{ $profile->kota_domisili }}
     </p>
-
+<span>Umur lo: {{ $profile->umur }} Tahun</span>
     <!-- DESKRIPSI -->
     <div class="mb-4">
         <h2 class="font-semibold">Deskripsi</h2>

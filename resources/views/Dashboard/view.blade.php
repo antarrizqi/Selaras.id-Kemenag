@@ -28,7 +28,7 @@
     <p class="mt-3">
         <b>Status:</b> {{ $profile->status }}
     </p>
-
+<span>Umur lo: {{ $profile->umur }} Tahun</span>
     <!-- APPROVE / REJECT -->
     @if($profile->status == 'pending')
     <div class="mt-4 flex gap-2">

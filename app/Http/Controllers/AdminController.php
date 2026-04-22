@@ -87,4 +87,13 @@ class AdminController extends Controller
 
         return back()->with('success', 'User sekarang menjadi mediator');
     }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        // Ganti 'admin.users.index' dengan nama route daftar user kamu
+         return back()->with('success', 'User sudah dihapus');
+    }
 }

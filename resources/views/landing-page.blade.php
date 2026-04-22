@@ -90,7 +90,7 @@
         <div class="text-center lg:text-left pb-16 lg:pb-12">
             <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[10px] font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-[3px]">
                 <span class="w-2 h-2 rounded-full bg-[#7DEBA0]"></span>
-                Platform Ta'aruf Terverifikasi
+                Platform Ta'aruf Terbaik
             </div>
             
             <h1 class="font-serif text-4xl md:text-6xl text-white font-semibold leading-[1.2] mb-6">
@@ -100,7 +100,7 @@
             </h1>
 
             <p class="text-white/70 text-base md:text-lg font-light mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                Aplikasi milenials mencari pasangan sesuai syariat — terencana, aman, dan penuh keberkahan.
+                Aplikasi mencari pasangan sesuai syariat — terencana, aman, dan penuh keberkahan.
             </p>
 
             <p class="text-[#7DEBA0] text-xs md:text-sm font-bold mb-10 tracking-[2px] uppercase">
@@ -112,53 +112,54 @@
             </a>
         </div>
 
-        <div class="flex justify-center lg:justify-end">
-            <div class="bg-white rounded-t-[40px] p-8 w-full max-w-[320px] shadow-[0_-10px_50px_rgba(0,0,0,0.3)] transform translate-y-2 lg:translate-y-0">
-                <div class="w-16 h-1.5 bg-gray-100 rounded-full mx-auto mb-8"></div>
-                <div class="flex items-center gap-4 mb-6 text-left">
-                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-soft to-[#A8DFC0] flex items-center justify-center font-serif text-xl text-green font-bold shadow-inner flex-shrink-0">SR</div>
-                    <div>
-                        <p class="font-bold text-base text-brand-text">Siti Rahmawati</p>
-                        <p class="text-[11px] text-brand-muted font-medium">24 thn · Jakarta · S1 Ekonomi</p>
-                        <span class="inline-flex items-center gap-1 bg-green-soft text-green text-[9px] font-extrabold px-2 py-0.5 rounded-full mt-1 uppercase border border-green/10">Terverifikasi</span>
-                    </div>
+        <div class="flex justify-center lg:justify-end p-4">
+    <div class="bg-white rounded-[40px] p-8 w-full max-w-[320px] shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50">
+        
+        <div class="flex items-center gap-4 mb-6">
+            <div class="relative flex-shrink-0">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-soft to-[#A8DFC0] flex items-center justify-center font-serif text-xl text-green font-bold border-2 border-white shadow-sm">
+                    N
                 </div>
-
-                <p class="text-[9px] text-brand-muted font-bold uppercase tracking-widest mb-3 text-left">Kriteria</p>
-                <div class="flex flex-wrap gap-2 mb-6 text-left">
-                    <span class="bg-green-pale text-green text-[10px] font-bold px-3 py-1 rounded-lg">Hafizah</span>
-                    <span class="bg-green-pale text-green text-[10px] font-bold px-3 py-1 rounded-lg">Aktif Kajian</span>
-                    <span class="bg-green-pale text-green text-[10px] font-bold px-3 py-1 rounded-lg">Serius</span>
-                </div>
-
-                <div class="bg-green-pale rounded-2xl p-4 flex items-center justify-between border border-green/5">
-                    <div class="text-left">
-                        <p class="text-[9px] text-brand-muted font-bold uppercase mb-1">Kecocokan</p>
-                        <p class="font-serif text-2xl text-green font-bold">88%</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[9px] text-brand-muted font-bold uppercase mb-1">Skor Profil</p>
-                        <div class="w-16 h-1.5 bg-brand-border rounded-full overflow-hidden">
-                            <div class="h-full w-[85%] bg-green"></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+            </div>
+            <div>
+                <p class="font-bold text-base text-brand-text">Nadia</p>
+                <p class="text-[11px] text-brand-muted font-medium">24 thn <span class="text-green mx-0.5">•</span> Jakarta</p>
             </div>
         </div>
+
+        <div class="space-y-4 text-left">
+            <div>
+                <p class="text-[9px] text-brand-muted font-bold uppercase tracking-widest mb-1 opacity-70">Tentang</p>
+                <p class="text-[11px] text-brand-text leading-relaxed">Pribadi yang tenang, senang belajar, dan menghargai kejujuran dalam berinteraksi.</p>
+            </div>
+
+            <div class="bg-green-pale/40 rounded-2xl p-3 border border-green/5">
+                <p class="text-[9px] text-green font-bold uppercase tracking-widest mb-1">Visi Misi</p>
+                <p class="text-[11px] text-brand-text leading-relaxed">Membangun keluarga yang harmonis dan saling mendukung dalam ketaatan.</p>
+            </div>
+
+            <div>
+                <p class="text-[9px] text-brand-muted font-bold uppercase tracking-widest mb-1 opacity-70">Harapan</p>
+                <p class="text-[11px] text-brand-text leading-relaxed">Bertemu pasangan yang bertanggung jawab dan mampu membimbing dalam kebaikan.</p>
+            </div>
+        </div>
+    </div>
+</div>
     </div>
 </section>
 
 {{-- ===== STATS ===== --}}
-<div class="bg-white py-12 border-b border-brand-border overflow-x-auto">
+{{-- <div class="bg-white py-12 border-b border-brand-border overflow-x-auto">
     <div class="max-w-7xl mx-auto px-[5%] flex justify-between gap-8 min-w-[700px]">
         @php
             $stats = [
-                ['n' => '23.474', 'l' => 'Ikhwan Terdaftar'],
-                ['n' => '43.302', 'l' => 'Akhwat Terdaftar'],
-                ['n' => '1.412',  'l' => 'Telah Berta\'aruf'],
-                ['n' => '250+',   'l' => 'Pasangan Menikah'],
-                ['n' => '26',     'l' => 'Ustadz Perantara'],
-                ['n' => '17',     'l' => 'Kota Layanan'],
+                ['n' => '9', 'l' => 'Ikhwan Terdaftar'],
+                ['n' => '4', 'l' => 'Akhwat Terdaftar'],
+                ['n' => '2',  'l' => 'Telah Berta\'aruf'],
+                ['n' => '0',   'l' => 'Pasangan Menikah'],
+                ['n' => '1',     'l' => 'Ustadz Perantara'],
+                ['n' => '0',     'l' => 'Kota Layanan'],
             ];
         @endphp
         @foreach($stats as $s)
@@ -168,7 +169,7 @@
         </div>
         @endforeach
     </div>
-</div>
+</div> --}}
 
 {{-- ===== ALUR TA'ARUF ===== --}}
 <section class="py-24 bg-green-pale" id="cara-kerja">
@@ -181,10 +182,10 @@
         <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 step-line">
             @php
                 $steps = [
-                    ['i' => '📝', 't' => 'Buat CV', 'd' => 'Isi profil ta\'aruf dengan template yang sudah tersedia'],
+                    ['i' => '📝', 't' => 'Buat CV', 'd' => 'Isi profil ta\'aruf lalu menunggu ferifikasi dari admin'],
                     ['i' => '🔍', 't' => 'Ajukan Ta\'aruf', 'd' => 'Ajukan kepada calon yang sesuai kriteria kamu'],
                     ['i' => '📨', 't' => 'Terima Ta\'aruf', 'd' => 'Terima perkenalan dari calon yang dirasa cocok'],
-                    ['i' => '💬', 't' => 'Tanya Jawab', 'd' => 'Lakukan tanya jawab melalui admin/ustadz'],
+                    ['i' => '💬', 't' => 'Tanya Jawab', 'd' => 'Lakukan tanya jawab melalui mediator/ustadz bisa diskusi dulu dengan calon pasangan dengan tinjauan mediator'],
                     ['i' => '🤝', 't' => 'Nadzor', 'd' => 'Bertemu langsung untuk mendapat kemantaban hati'],
                 ];
             @endphp
@@ -211,14 +212,28 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @php
-                $feats = [
-                    ['i' => '🔒', 't' => 'Privasi Berlapis', 'd' => 'Foto dan data sensitif hanya terlihat setelah kedua pihak saling menyetujui ta\'aruf.'],
-                    ['i' => '✅', 't' => 'Verifikasi KTP', 'd' => 'Setiap anggota diverifikasi identitasnya untuk memastikan keseriusan dan keamanan.'],
-                    ['i' => '🕌', 't' => 'Didampingi Ustadz', 'd' => 'Ada 26 ustadz perantara yang mendampingi proses agar tetap sesuai syariat.'],
-                    ['i' => '📱', 't' => 'Semua Platform', 'd' => 'Tersedia via web, Android, dan iOS. Akses kapanpun dan dimanapun kamu berada.'],
-                    ['i' => '🎯', 't' => 'Filter Lengkap', 'd' => 'Cari calon berdasarkan usia, kota, hafalan, pendidikan, dan banyak kriteria lainnya.'],
-                    ['i' => '📚', 't' => 'Kelas Pra Nikah', 'd' => 'Berbagai kelas persiapan pernikahan dari mitra terpercaya kami.'],
-                ];
+               $feats = [
+    [
+        'i' => '🔒', 
+        't' => 'Privasi Terjaga', 
+        'd' => 'Data pribadi dan identitas Anda aman bersama kami dengan sistem enkripsi berlapis.'
+    ],
+    [
+        'i' => '🕌', 
+        't' => 'Didampingi Ustadz', 
+        'd' => 'Proses ta\'aruf dibimbing langsung oleh ustadz perantara agar tetap sesuai syariat.'
+    ],
+    [
+        'i' => '✅', 
+        't' => 'Verifikasi Ketat', 
+        'd' => 'Tim kami melakukan verifikasi manual yang ketat untuk memastikan keseriusan setiap anggota.'
+    ],
+    [
+        'i' => '📚', 
+        't' => 'Kelas Pra Nikah', 
+        'd' => 'Segera hadir! Berbagai materi persiapan pernikahan dari pakar dan mitra terpercaya.'
+    ],
+];
             @endphp
             @foreach($feats as $f)
             <div class="bg-white border border-brand-border p-8 rounded-[32px] hover:shadow-2xl hover:border-green/10 transition-all group">
@@ -234,8 +249,15 @@
 </section>
 
 {{-- ===== KELAS ===== --}}
-<section class="py-24 bg-gold-soft/30 border-t border-brand-border" id="kelas">
-    <div class="max-w-7xl mx-auto px-[5%]">
+<section class="py-24 bg-gold-soft/30 border-t border-brand-border relative overflow-hidden" id="kelas">
+    <div class="absolute inset-0 z-10 backdrop-blur-[2px] bg-white/40 flex flex-col items-center justify-center">
+        <div class="bg-white px-8 py-4 rounded-3xl shadow-2xl border border-gold/20 text-center transform -rotate-2">
+            <p class="text-gold font-extrabold tracking-[5px] uppercase text-xs mb-1">Coming Soon</p>
+            <h3 class="text-brand-text font-serif text-2xl font-bold">Fitur Segera Hadir</h3>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-[5%] opacity-50 grayscale-[0.5] select-none pointer-events-none">
         <div class="mb-12">
             <p class="text-[11px] font-extrabold text-gold uppercase tracking-[4px] mb-3">Kelas Pra Nikah</p>
             <h2 class="font-serif text-3xl md:text-4xl text-brand-text font-semibold">Persiapkan diri sebelum <em class="text-gold">melangkah lebih jauh</em></h2>
@@ -251,7 +273,7 @@
                 ];
             @endphp
             @foreach($kelas as $k)
-            <div class="bg-white p-7 rounded-[28px] border border-gold-border hover:-translate-y-2 transition-all cursor-pointer shadow-sm flex flex-col justify-between">
+            <div class="bg-white p-7 rounded-[28px] border border-gold-border shadow-sm flex flex-col justify-between">
                 <div>
                     <span class="inline-block bg-gold-soft text-gold text-[9px] font-extrabold px-2.5 py-1 rounded-full mb-4 border border-gold-border uppercase tracking-widest">Online</span>
                     <h4 class="font-serif text-[15px] font-semibold text-brand-text mb-4 leading-snug">{{ $k['t'] }}</h4>
@@ -266,7 +288,7 @@
         </div>
 
         <div class="text-center mt-12">
-            <a href="#" class="inline-block border-2 border-gold text-gold text-xs font-bold px-10 py-3.5 rounded-full hover:bg-gold hover:text-white transition-all uppercase tracking-widest shadow-md">Lihat Semua Kelas</a>
+            <span class="inline-block border-2 border-gray-300 text-gray-400 text-xs font-bold px-10 py-3.5 rounded-full uppercase tracking-widest cursor-not-allowed">Lihat Semua Kelas</span>
         </div>
     </div>
 </section>
@@ -284,13 +306,41 @@
     </div>
 </section>
 
+<section class="py-20 bg-white border-t border-brand-border">
+    <div class="max-w-4xl mx-auto px-[5%] text-center">
+        <div class="inline-flex items-center gap-2 bg-green-soft/50 text-green text-[10px] font-extrabold px-4 py-1.5 rounded-full mb-6 uppercase tracking-[2px] border border-green/10">
+            Siap Melangkah?
+        </div>
+        
+        <h2 class="font-serif text-3xl md:text-4xl text-brand-text font-bold mb-4 leading-tight">
+            Temukan pasangan <em class="text-green not-italic">terbaikmu</em> hari ini
+        </h2>
+        <p class="text-brand-muted text-sm md:text-base max-w-xl mx-auto mb-10">
+            Bergabunglah dengan  anggota lainnya yang sedang berikhtiar membangun keluarga sakinah melalui proses yang terjaga.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/register" class="w-full sm:w-auto px-10 py-4 bg-green text-white font-bold rounded-2xl shadow-lg shadow-green/20 hover:bg-green-dark hover:-translate-y-1 transition-all active:scale-95 text-sm">
+                Daftar Sekarang
+            </a>
+            <a href="/login" class="w-full sm:w-auto px-10 py-4 bg-white text-brand-text font-bold rounded-2xl border-2 border-gray-100 hover:border-green hover:text-green transition-all text-sm">
+                Masuk ke Akun
+            </a>
+        </div>
+        
+        <p class="mt-6 text-[11px] text-brand-muted italic">
+            *Proses pendaftaran gratis dan data Anda dijamin kerahasiaannya.
+        </p>
+    </div>
+</section>
+
 {{-- ===== FOOTER ===== --}}
 <footer class="bg-brand-text pt-20 pb-10">
     <div class="max-w-7xl mx-auto px-[5%]">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-white/5 pb-16">
             <div class="md:col-span-2">
                 <p class="font-serif text-3xl font-bold text-white mb-6">Selar<span class="text-green">as</span></p>
-                <p class="text-sm text-white/40 leading-relaxed max-w-sm">Platform ta'aruf modern untuk milenials yang serius mencari pasangan sesuai syariat Islam. Menjaga privasi dan kemuliaan setiap prosesnya.</p>
+                <p class="text-sm text-white/40 leading-relaxed max-w-sm">Platform ta'aruf modern untuk yang serius mencari pasangan sesuai syariat Islam. Menjaga privasi dan kemuliaan setiap prosesnya.</p>
             </div>
             <div>
                 <h4 class="text-[11px] font-bold text-white uppercase tracking-[3px] mb-6 text-green">Navigasi</h4>
@@ -312,7 +362,7 @@
         </div>
         <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-extrabold text-white/20 uppercase tracking-[3px]">
             <span>© 2026 Selaras Indonesia</span>
-            <span>Handcrafted with ❤️ in Indonesia</span>
+            <span>Handcrafted with ❤️ Love</span>
         </div>
     </div>
 </footer>

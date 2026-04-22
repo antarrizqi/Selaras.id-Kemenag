@@ -22,6 +22,14 @@
         {{ $t->fromUser->name }} → {{ $t->toUser->name }}
     </p>
 
+    <form method="POST" action="{{ route('taaruf.delete', $t->id) }}">
+    @csrf
+    @method('DELETE')
+    <button class="bg-red-500 text-white px-2 py-1 rounded">
+        Hapus
+    </button>
+</form>
+
     {{-- LINK PROFIL --}}
     <div class="mt-2 space-x-3">
 
@@ -43,8 +51,16 @@
 
     {{--  NOMOR HP --}}
     <div class="mt-3 text-sm">
-        <p>No HP Pengaju: {{ $t->fromUser->phone ?? '-' }}</p>
-        <p>No HP Target: {{ $t->toUser->phone ?? '-' }}</p>
+        <a href="https://wa.me/{{ $t->fromUser->phone }}" target="_blank"
+   class="bg-green-500 text-white px-3 py-1 rounded">
+   <p>No HP Pengaju</p>
+</a>
+
+<a href="https://wa.me/{{ $t->toUser->phone }}" target="_blank"
+   class="bg-green-500 text-white px-3 py-1 rounded">
+   No HP Target
+</a>
+      
     </div>
 
 </div>

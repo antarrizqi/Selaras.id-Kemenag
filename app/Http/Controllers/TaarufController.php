@@ -22,6 +22,7 @@ class TaarufController extends Controller
             'to_user_id' => 'required|exists:users,id'
         ]);
 
+
         $exist = Taaruf::where('from_user_id', Auth::id())
             ->where('to_user_id', $request->to_user_id)
             ->where('status', 'pending')
@@ -37,6 +38,14 @@ class TaarufController extends Controller
             'status' => 'pending'
         ]);
 
+        $active = Taaruf::where('from_user_id', Auth::id())
+            ->whereIn('status', ['pending', 'mediator'])
+            ->exists();
+
+        if ($active) {
+            return back()->with('error', 'Selesaikan proses taaruf sebelumnya dulu.');
+        }
+
         return back()->with('success', 'Pengajuan dikirim');
     }
 
@@ -44,22 +53,20 @@ class TaarufController extends Controller
     {
         $t = Taaruf::findOrFail($id);
 
-        //  hanya target yg boleh accept
-        if ($t->to_user_id !== auth::id()) {
+        // 🔥 pastikan yang nerima adalah target
+        if ($t->to_user_id !== Auth::id()) {
             abort(403);
         }
 
-        // step 1: accepted
         $t->update([
             'status' => 'accepted'
         ]);
 
-        // step 2: langsung kirim ke mediator
         $t->update([
             'status' => 'mediator'
         ]);
 
-        return back()->with('success', 'Taaruf diterima, sedang diproses mediator');
+        return back()->with('success', 'Diterima! Tim mediator akan segera menghubungi kalian.');
     }
 
     public function reject($id)
@@ -71,5 +78,23 @@ class TaarufController extends Controller
         ]);
 
         return back()->with('success', 'Taaruf ditolak');
+    }
+
+    public function destroy($id)
+    {
+        $t = Taaruf::findOrFail($id);
+        $t->delete();
+
+        return back()->with('success', 'Data berhasil dihapus');
+    }
+
+    public function incomingList()
+    {
+        $requests = Taaruf::where('to_user_id', Auth::id())
+            ->where('status', 'pending')
+            ->with('from_user.profile')
+            ->get();
+
+        return view('taaruf.incoming', compact('requests'));
     }
 }

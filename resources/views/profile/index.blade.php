@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Profile</title>
 <script src="https://cdn.tailwindcss.com"></script>
+{{-- profil pribadi --}}
 </head>
 
 <body class="bg-gray-100 min-h-screen flex justify-center items-center">

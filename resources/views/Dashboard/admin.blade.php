@@ -37,6 +37,7 @@
         <div class="bg-white p-5 rounded-xl shadow">
 
             <!-- USER -->
+            
             <h2 class="text-lg font-bold">
                 {{ $profile->user->name }}
             </h2>
@@ -48,8 +49,7 @@
             <p class="text-sm text-gray-500">
                 {{ $profile->user->phone ?? '-' }}
             </p>
-
-            <!-- IMAGE (FIXED) -->
+<span>Umur lo: {{ $profile->umur }} Tahun</span>            <!-- IMAGE (FIXED) -->
           @if($profile->foto_profil && file_exists(public_path($profile->foto_profil)))
     <img src="{{ asset($profile->foto_profil) }}"
          class="w-full h-40 object-cover rounded mt-3">
@@ -96,6 +96,16 @@
                     </form>
 
                 @endif
+                <td class="px-6 py-4">
+    <div class="flex gap-2">
+        <form action="{{ route('admin.deleteUser', $profile->user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+    @csrf
+    @method('DELETE') <button type="submit" class="text-red-600 hover:underline">
+        Hapus User
+    </button>
+</form>
+    </div>
+</td>
 
                 <!-- VIEW -->
                 <a href="{{ route('admin.view', $profile->id) }}"

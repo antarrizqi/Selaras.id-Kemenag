@@ -19,6 +19,26 @@
         </a>
 </div>
 
+@foreach($sent as $req)
+<div class="bg-white p-4 rounded shadow mb-3">
+
+    <p class="font-bold">{{ $req->toUser->name }}</p>
+
+    <p class="text-sm mt-2">
+        @if($req->status == 'pending')
+            ⏳ Menunggu respon target
+
+        @elseif($req->status == 'mediator')
+            ✅ Sudah disetujui — mediator akan menghubungi
+
+        @elseif($req->status == 'rejected')
+            ❌ Ditolak
+        @endif
+    </p>
+
+</div>
+@endforeach
+
 @if(session('success'))
 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded">
     {{ session('success') }}

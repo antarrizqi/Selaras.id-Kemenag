@@ -47,7 +47,7 @@
             
             <div class="mb-8">
                 <h2 class="font-serif text-2xl font-semibold text-brand-text">Selamat Datang</h2>
-                <p class="text-brand-muted text-sm mt-1">Lanjutkan ikhtiar mencari pasangan selaras.</p>
+                <p class="text-brand-muted text-sm mt-1">Lanjutkan ikhtiar mencari pasangan yang selaras dengan mu.</p>
             </div>
 
             @if ($errors->any())
@@ -60,6 +60,7 @@
             <form method="POST" action="/login" class="space-y-5">
                 @csrf
 
+                {{-- Input Email --}}
                 <div class="space-y-1.5">
                     <label class="text-[0.8rem] font-bold text-brand-text ml-1 uppercase tracking-wider">Email</label>
                     <input type="email" name="email" required
@@ -67,20 +68,27 @@
                         placeholder="Masukkan email terdaftar">
                 </div>
 
+                {{-- Input Password --}}
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between px-1">
                         <label class="text-[0.8rem] font-bold text-brand-text uppercase tracking-wider">Password</label>
-                        <a href="#" class="text-[0.75rem] font-semibold text-green hover:text-green-mid">Lupa?</a>
+                       
                     </div>
-                    <input type="password" name="password" required
-                        class="w-full bg-brand-bg border border-brand-border p-3.5 rounded-2xl outline-none focus:ring-2 focus:ring-green/10 focus:border-green transition-all placeholder:text-brand-muted/50 text-sm"
-                        placeholder="••••••••">
+                    
+                    <div class="relative group">
+                        <input type="password" id="password" name="password" required
+                            class="w-full bg-brand-bg border border-brand-border p-3.5 pr-12 rounded-2xl outline-none focus:ring-2 focus:ring-green/10 focus:border-green transition-all placeholder:text-brand-muted/50 text-sm"
+                            placeholder="••••••••">
+                        
+                        <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-muted hover:text-green transition-colors focus:outline-none">
+                            {{-- SVG Mata --}}
+                            <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-
-                <label class="flex items-center gap-2 cursor-pointer group w-fit">
-                    <input type="checkbox" class="w-4 h-4 rounded border-brand-border text-green focus:ring-green/20">
-                    <span class="text-xs text-brand-muted font-medium group-hover:text-brand-text transition-colors">Ingat saya di perangkat ini</span>
-                </label>
 
                 <button type="submit"
                     class="w-full bg-green hover:bg-green-mid text-white py-4 rounded-full font-bold text-sm shadow-lg shadow-green/20 transition-all active:scale-[0.98] mt-2">
@@ -97,9 +105,31 @@
         </div>
 
         <p class="text-center mt-8 text-[0.75rem] text-brand-muted">
-            Butuh bantuan? <a href="#" class="font-bold hover:text-brand-text">Hubungi Admin Ustadz</a>
+            Butuh bantuan? <a href="https://wa.me/628123456789" class="font-bold hover:text-brand-text">Hubungi Admin Ustadz</a>
         </p>
     </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.getElementById("eye-icon");
+            
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                // SVG Mata Coret (Kedip/Sembunyi)
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"></path>
+                `;
+            } else {
+                passwordInput.type = "password";
+                // SVG Mata Terbuka
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                `;
+            }
+        }
+    </script>
 
 </body>
 </html>

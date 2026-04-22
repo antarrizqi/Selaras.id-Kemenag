@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 
 class AuthController extends Controller
 {
-//    ================= REGISTER =================
+    //    ================= REGISTER =================
 
     public function showRegister()
     {
@@ -105,4 +105,6 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
+
+   
 }

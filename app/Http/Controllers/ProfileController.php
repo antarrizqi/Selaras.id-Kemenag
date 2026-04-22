@@ -11,7 +11,12 @@ class ProfileController
     public function index()
     {
         $user = Auth::user();
-        return view('profile.profile', compact('user'));
+        $incoming = \App\Models\Taaruf::where('to_user_id', $user->id)
+            ->where('status', 'pending')
+            ->with('from_user.profile') // Sekalian ambil profil pengirimnya
+            ->get();
+
+        return view('profile.profile', compact('user', 'incoming'));
     }
 
     public function create()
@@ -34,6 +39,7 @@ class ProfileController
         }
 
         $validated = $request->validate([
+            'tanggal_lahir' => 'required|date',
             'alamat_domisili' => 'required|string|max:255',
             'kota_domisili' => 'required|string|max:255',
             'tinggi_badan' => 'required|integer',
@@ -86,7 +92,7 @@ class ProfileController
         $profile = Profile::findOrFail($id);
 
         if ($profile->user_id !== auth::id()) {
-            abort(403);
+            abort(403, 'edit punya lu aja jangan yg lain');
         }
 
         return view('profile.edit', compact('profile'));
@@ -101,6 +107,7 @@ class ProfileController
         }
 
         $validated = $request->validate([
+            'tanggal_lahir' => 'required|date',
             'alamat_domisili' => 'required|string|max:255',
             'kota_domisili' => 'required|string|max:255',
             'tinggi_badan' => 'required|integer',

@@ -10,8 +10,62 @@
 
 {{-- matches utama --}}
 
+
+
 <body class="bg-gray-100 min-h-screen p-6">
     <div class="flex justify-between items-center mb-6">
+
+        @foreach($sent as $req)
+<div class="bg-white p-4 rounded shadow mb-3">
+
+    <p class="font-bold">{{ $req->toUser->name }}</p>
+
+    <p class="text-sm mt-2">
+        @if($req->status == 'pending')
+            ⏳ Menunggu respon target
+
+        @elseif($req->status == 'mediator')
+            ✅ Sudah disetujui — mediator akan menghubungi
+
+        @elseif($req->status == 'rejected')
+            ❌ Ditolak
+        @endif
+    </p>
+
+</div>
+@endforeach
+
+@if(session('success'))
+<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded">
+    {{ session('success') }}
+</div>
+@endif
+
+
+{{-- 🔔 NOTIF ADA YANG NGE-AJAK --}}
+{{-- 🔔 NOTIFIKASI PERMINTAAN TAARUF --}}
+@if(isset($incoming) && $incoming->count() > 0)
+<div class="bg-white border-2 border-green/10 p-5 rounded-[24px] mb-8 flex items-center gap-4 shadow-sm relative overflow-hidden group">
+    <div class="absolute top-0 right-0 w-24 h-24 bg-green/5 rounded-full -mr-10 -mt-10 group-hover:scale-110 transition-transform"></div>
+    
+    <div class="bg-green-soft w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-inner relative z-10">
+        📩
+    </div>
+    
+    <div class="flex-1 relative z-10">
+        <h4 class="text-sm font-bold text-brand-text">Ada Ajakan Taaruf!</h4>
+        <p class="text-[11px] text-brand-muted leading-relaxed">
+            Wah, ada **{{ $incoming->count() }} orang** yang tertarik mengenalmu lebih jauh.
+        </p>
+    </div>
+
+    <div class="relative z-10">
+        <a href="/taaruf/incoming" class="bg-green text-white text-[10px] font-bold px-5 py-2.5 rounded-xl uppercase tracking-wider hover:bg-green-mid transition-all shadow-md shadow-green/20">
+            Lihat List
+        </a>
+    </div>
+</div>
+@endif
 
     <div class="flex gap-3">
         <a href="/user"
@@ -102,7 +156,7 @@
                 <p class="text-sm text-gray-600 mt-1">
                     {{ \Illuminate\Support\Str::limit($item->deskripsi_diri, 60) }}
                 </p>
-
+<span>Umur lo: {{ $item->umur }} Tahun</span>
                 <div class="flex gap-2 mt-4">
 
                     <!-- DETAIL -->

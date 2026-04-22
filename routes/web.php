@@ -100,6 +100,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::post('/admin/create-mediator', [AdminController::class, 'createMediator'])
         ->name('admin.createMediator');
+
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])
+        ->name('admin.deleteUser');
 });
 
 /*
@@ -118,6 +121,9 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
 
         return view('dashboard.mediator', compact('data'));
     });
+
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])
+        ->name('profile.show');
 });
 
 
@@ -125,3 +131,9 @@ Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('prof
 Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::post('/taaruf/process/{id}', [TaarufController::class, 'process'])
     ->name('taaruf.process');
+
+Route::delete('/taaruf/{id}', [TaarufController::class, 'destroy'])
+    ->name('taaruf.delete');
+
+    // Di routes/web.php
+Route::get('/taaruf/incoming', [TaarufController::class, 'incomingList'])->name('taaruf.incoming');
