@@ -36,7 +36,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
 
-    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    // Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
@@ -132,8 +132,8 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
     });
 
     // ⚠️ FIX: beda route biar gak tabrakan
-    Route::get('/mediator/profile/{id}', [ProfileController::class, 'show'])
-        ->name('mediator.profile.show');
+    // Route::get('/mediator/profile/{id}', [ProfileController::class, 'show'])
+    //     ->name('mediator.profile.show');
 });
 
 
@@ -153,3 +153,6 @@ Route::delete('/taaruf/{id}', [TaarufController::class, 'destroy'])
 // Incoming list (pakai auth biar aman)
 Route::middleware('auth')->get('/taaruf/incoming', [TaarufController::class, 'incomingList'])
     ->name('taaruf.incoming');
+
+    Route::middleware('auth')->get('/profile/{id}', [ProfileController::class, 'show'])
+    ->name('profile.show');

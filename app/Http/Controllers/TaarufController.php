@@ -51,33 +51,31 @@ class TaarufController extends Controller
 
     public function accept($id)
     {
-        $t = Taaruf::findOrFail($id);
+        $taaruf = \App\Models\Taaruf::findOrFail($id);
 
-        // 🔥 pastikan yang nerima adalah target
-        if ($t->to_user_id !== Auth::id()) {
+        // pastikan yang nerima adalah target
+        if ($taaruf->to_user_id != auth::id()) {
             abort(403);
         }
 
-        $t->update([
-            'status' => 'accepted'
-        ]);
+        $taaruf->status = 'mediator';
+        $taaruf->save();
 
-        $t->update([
-            'status' => 'mediator'
-        ]);
-
-        return back()->with('success', 'Diterima! Tim mediator akan segera menghubungi kalian.');
+        return back()->with('success', 'Pengajuan diterima, mediator akan memproses');
     }
 
     public function reject($id)
     {
-        $t = Taaruf::findOrFail($id);
+        $taaruf = \App\Models\Taaruf::findOrFail($id);
 
-        $t->update([
-            'status' => 'rejected'
-        ]);
+        if ($taaruf->to_user_id != auth::id()) {
+            abort(403);
+        }
 
-        return back()->with('success', 'Taaruf ditolak');
+        $taaruf->status = 'rejected';
+        $taaruf->save();
+
+        return back()->with('success', 'Pengajuan ditolak');
     }
 
     public function destroy($id)
