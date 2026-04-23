@@ -23,6 +23,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+
 /*
 |--------------------------------------------------------------------------
 | USER
@@ -31,6 +32,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth', 'role:user'])->group(function () {
 
+    // PROFILE
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
 
@@ -39,6 +41,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
+
+    // DASHBOARD USER
     Route::get('/user', function () {
 
         $user = Auth::user();
@@ -67,14 +71,18 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         return view('dashboard.user', compact('incoming', 'sent'));
     });
 
+
+    // MATCH
     Route::get('/match', [MatchController::class, 'index'])
         ->middleware('profile.check');
+
 
     // TAARUF
     Route::post('/taaruf/request', [TaarufController::class, 'request'])->name('taaruf.request');
     Route::post('/taaruf/accept/{id}', [TaarufController::class, 'accept'])->name('taaruf.accept');
     Route::post('/taaruf/reject/{id}', [TaarufController::class, 'reject'])->name('taaruf.reject');
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +113,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.deleteUser');
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | MEDIATOR
@@ -122,18 +131,25 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
         return view('dashboard.mediator', compact('data'));
     });
 
-    Route::get('/profile/{id}', [ProfileController::class, 'show'])
-        ->name('profile.show');
+    // ⚠️ FIX: beda route biar gak tabrakan
+    Route::get('/mediator/profile/{id}', [ProfileController::class, 'show'])
+        ->name('mediator.profile.show');
 });
 
 
-Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+/*
+|--------------------------------------------------------------------------
+| GLOBAL (AMAN)
+|--------------------------------------------------------------------------
+*/
+
+// Taaruf process
 Route::post('/taaruf/process/{id}', [TaarufController::class, 'process'])
     ->name('taaruf.process');
 
 Route::delete('/taaruf/{id}', [TaarufController::class, 'destroy'])
     ->name('taaruf.delete');
 
-    // Di routes/web.php
-Route::get('/taaruf/incoming', [TaarufController::class, 'incomingList'])->name('taaruf.incoming');
+// Incoming list (pakai auth biar aman)
+Route::middleware('auth')->get('/taaruf/incoming', [TaarufController::class, 'incomingList'])
+    ->name('taaruf.incoming');

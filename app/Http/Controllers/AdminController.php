@@ -94,6 +94,6 @@ class AdminController extends Controller
         $user->delete();
 
         // Ganti 'admin.users.index' dengan nama route daftar user kamu
-         return back()->with('success', 'User sudah dihapus');
+        return back()->with('success', 'User sudah dihapus');
     }
 }

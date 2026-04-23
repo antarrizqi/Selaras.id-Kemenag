@@ -42,7 +42,7 @@
                 <span id="step-label" class="text-[10px] font-bold text-green uppercase tracking-widest">Identitas Diri</span>
             </div>
 
-            <form method="POST" action="{{ route('profile.update', $profile->id) }}" enctype="multipart/form-data" class="p-8 md:p-10">
+            <form method="POST" action="{{ route('profile.update', $profile->id) }}" enctype="multipart/form-data" class="p-8 @csrf @method('PUT')">
                 @csrf
                 @method('PUT')
 

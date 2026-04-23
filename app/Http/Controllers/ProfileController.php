@@ -83,7 +83,7 @@ class ProfileController
 
     public function show($id)
     {
-        $profile = \App\Models\Profile::with('user')->findOrFail($id);
+        $profile = Profile::with('user')->findOrFail($id);
 
         return view('profile.show', compact('profile'));
     }

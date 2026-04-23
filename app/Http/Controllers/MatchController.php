@@ -9,7 +9,11 @@ class MatchController
 {
     public function index()
     {
+
+
         $user = Auth::user();
+
+
 
         if (!$user->profile || $user->profile->status !== 'approved') {
             return redirect('/user');
@@ -31,6 +35,11 @@ class MatchController
             ->latest()
             ->get();
 
-        return view('matches.index', compact('candidates', 'sent'));
+        $incoming = \App\Models\Taaruf::with('fromUser.profile')
+            ->where('to_user_id', $user->id)
+            ->where('status', 'pending')
+            ->get();
+
+        return view('matches.index', compact('candidates', 'sent', 'incoming'));
     }
 }
