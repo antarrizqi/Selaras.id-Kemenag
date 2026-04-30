@@ -71,6 +71,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         return view('dashboard.user', compact('incoming', 'sent'));
     });
 
+    
 
     // MATCH
     Route::get('/match', [MatchController::class, 'index'])
@@ -131,9 +132,7 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
         return view('dashboard.mediator', compact('data'));
     });
 
-    // ⚠️ FIX: beda route biar gak tabrakan
-    // Route::get('/mediator/profile/{id}', [ProfileController::class, 'show'])
-    //     ->name('mediator.profile.show');
+
 });
 
 

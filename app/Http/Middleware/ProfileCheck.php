@@ -10,19 +10,23 @@ use App\Models\User;
 class ProfileCheck
 {
     public function handle(Request $request, Closure $next)
-{
-    $user = auth::user();
+    {
+        $user = auth::user();
 
-    //  kalau belum login atau belum punya profile
-    if (!$user || !$user->profile) {
-        return redirect()->route('profile.create');
+        //  kalau belum login atau belum punya profile
+        if (!$user || !$user->profile) {
+            return redirect()->route('profile.create');
+        }
+
+        //  kalau belum di-approve
+        if ($user->profile->status !== 'approved') {
+            return redirect('/user');
+        }
+
+        if (auth::user()->role === 'mediator') {
+            return redirect('/mediator');
+        }
+
+        return $next($request);
     }
-
-    //  kalau belum di-approve
-    if ($user->profile->status !== 'approved') {
-        return redirect('/user');
-    }
-
-    return $next($request);
-}
 }
