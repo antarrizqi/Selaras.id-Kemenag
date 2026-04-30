@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         return view('dashboard.user', compact('incoming', 'sent'));
     });
 
-    
+
 
     // MATCH
     Route::get('/match', [MatchController::class, 'index'])
@@ -132,7 +132,6 @@ Route::middleware(['auth', 'role:mediator'])->group(function () {
         return view('dashboard.mediator', compact('data'));
     });
 
-
 });
 
 
@@ -153,5 +152,5 @@ Route::delete('/taaruf/{id}', [TaarufController::class, 'destroy'])
 Route::middleware('auth')->get('/taaruf/incoming', [TaarufController::class, 'incomingList'])
     ->name('taaruf.incoming');
 
-    Route::middleware('auth')->get('/profile/{id}', [ProfileController::class, 'show'])
+Route::middleware('auth')->get('/profile/{id}', [ProfileController::class, 'show'])
     ->name('profile.show');

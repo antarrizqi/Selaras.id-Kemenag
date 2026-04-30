@@ -69,7 +69,7 @@
                                 <option value="perempuan">Perempuan</option>
                             </select>
                         </div>
-                        {{-- NAH INI DIA COK YANG KETINGGALAN --}}
+
                         <div class="space-y-1.5">
                             <label class="text-xs font-bold uppercase tracking-wider ml-1">Tanggal Lahir</label>
                             <input type="date" name="tanggal_lahir" required class="w-full bg-brand-bg border border-brand-border p-3 rounded-xl text-sm outline-none focus:border-green">
