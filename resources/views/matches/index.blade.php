@@ -126,8 +126,7 @@
                 <a href="/user" class="hover:text-selaras-green transition">Dashboard</a>
                 @if (auth()->check() && auth()->user()->profile)
                     <a href="{{ route('profile.edit', auth()->user()->profile->id) }}"
-                        class="bg-white border border-gray-200 px-6 py-2.5 rounded-full hover:border-selaras-gold transition shadow-sm">Profil
-                        Saya</a>
+                        class="bg-white border border-gray-200 px-6 py-2.5 rounded-full hover:border-selaras-gold transition shadow-sm">Edit profil</a>
                 @endif
             </div>
         </nav>
