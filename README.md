@@ -1,59 +1,191 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Selaras.id – Platform Taaruf Digital Kemenag
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Selaras.id adalah platform taaruf digital berbasis web yang dibuat untuk membantu proses pencarian pasangan secara lebih terarah, aman, dan sesuai nilai Islami.
+Project ini dikembangkan sebagai sistem dengan role user, mediator, dan admin untuk memfasilitasi proses pengajuan taaruf secara terstruktur.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Authentication & Authorization
+- Multi Role:
+    - User
+    - Mediator
+    - Admin
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Pengajuan taaruf
+- Accept / reject pengajuan
+- Dashboard berbeda tiap role
+- Manajemen profil pengguna
+- Sistem mediator
+- Responsive UI
+- CRUD data pengguna
+- Laravel MVC Architecture
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP
+- Laravel
+- Blade
+- Tailwind CSS
+- MySQL
+- Laravel Breeze / Auth
+- Eloquent ORM
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ⚙️ Installation
 
-## Contributing
+Clone repository:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/antarrizqi/Selaras.id-Kemenag.git
+```
 
-## Code of Conduct
+Masuk ke folder project:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cd Selaras.id-Kemenag
+```
 
-## Security Vulnerabilities
+Install dependency:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+```
 
-## License
+Copy file environment:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+Generate app key:
+
+```bash
+php artisan key:generate
+```
+
+Atur database pada file `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=selaras
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Migrasi database:
+
+```bash
+php artisan migrate
+```
+
+Jalankan server:
+
+```bash
+php artisan serve
+```
+
+---
+
+## 👤 Demo Account
+
+### Admin
+
+```txt
+Email    : admin@gmail.com
+Password : 12345
+```
+
+### User
+
+```txt
+Email    : linda@gmail.com
+Password : linda123
+```
+
+---
+
+## 📂 Project Structure
+
+```bash
+app/
+├── Http/
+├── Models/
+├── 
+
+resources/
+├── views/
+├── css/
+
+routes/
+├── web.php
+
+database/
+├── migrations/
+```
+
+---
+
+## 🎯 Main Goals
+
+Project ini dibuat untuk:
+
+- Membantu proses taaruf digital lebih modern
+- Menjadi media penghubung antar pengguna
+- Mempermudah pengelolaan data taaruf
+- Mengurangi proses yang tidak terarah dalam pencarian pasangan
+
+---
+
+## 🔒 Roles Permission
+
+| Role     | Access                             |
+| -------- | ---------------------------------- |
+| User     | Mengajukan taaruf & melihat status |
+| Mediator | Memantau dan memediasi pengajuan   |
+| Admin    | Mengelola seluruh sistem           |
+
+---
+
+## 📌 Future Improvements
+
+- Realtime notification
+- Chat mediator
+- Matching recommendation system
+- Email verification
+- Upload dokumen pendukung
+- Mobile responsive optimization
+
+---
+
+## 🤝 Contributing
+
+Pull request dan kontribusi sangat terbuka.
+
+Langkah kontribusi:
+
+```bash
+1. Fork repository
+2. Create new branch
+3. Commit changes
+4. Push branch
+5. Create pull request
+```
+
+
+---
+
+## 👨‍💻 Developer
+
+Developed by Antar rizqi
+
+GitHub Repository:
+[https://github.com/antarrizqi/Selaras.id-Kemenag](https://github.com/antarrizqi/Selaras.id-Kemenag)
